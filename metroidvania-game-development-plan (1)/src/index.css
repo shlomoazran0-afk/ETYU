@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --grove-night: #070b14;
+  --grove-moss: #7ed56a;
+  --grove-cyan: #5cf0ff;
+  --grove-gold: #f0d48a;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--grove-night);
+  color: #e8f0ff;
+}
+
+body {
+  font-family: "VT323", monospace;
+}
+
+#game-root canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+}
+
+.pixel-border {
+  box-shadow:
+    0 0 0 2px #0b1020,
+    0 0 0 4px #c9a35b,
+    0 0 0 6px #3a2410,
+    0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+.hud-panel {
+  background: linear-gradient(180deg, rgba(8, 12, 24, 0.86), rgba(8, 12, 24, 0.72));
+  border: 2px solid #2a3558;
+  box-shadow: inset 0 0 0 1px rgba(92, 240, 255, 0.15);
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px #5cf0ff);
+  }
+  50% {
+    filter: drop-shadow(0 0 10px #5cf0ff);
+  }
+}
+
+.crystal-glow {
+  animation: pulse-glow 2.2s ease-in-out infinite;
+}
+
+@keyframes title-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
