@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type Phaser from "phaser";
 import { createEchoesGame } from "./game/createGame";
 import { sfx } from "./game/audio";
+import { TOTAL_CRYSTALS } from "./game/world/levelData";
 
 type Screen =
   | "title"
@@ -33,7 +34,7 @@ const DEFAULT_HUD: Hud = {
   mana: 100,
   maxMana: 100,
   crystals: 0,
-  totalCrystals: 24,
+  totalCrystals: TOTAL_CRYSTALS,
   hasDoubleJump: false,
   hasDash: false,
   combo: 0,

@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { CAVE_END, FOREST_END, GAME_H, WORLD_H, WORLD_W } from "../const";
+import { FOREST_END, WORLD_H, WORLD_W } from "../const";
 import { PLATFORMS, SPAWNS, TOTAL_CRYSTALS } from "../world/levelData";
 import { Player } from "../entities/Player";
 import { Enemy } from "../entities/Enemy";
@@ -246,9 +246,6 @@ export class GameScene extends Phaser.Scene {
     sfx.startMusic();
     this.player.emitHud();
     this.toast("THE OVERGROWTH STIRS");
-
-    void GAME_H;
-    void CAVE_END;
   }
 
   toast(text: string) {

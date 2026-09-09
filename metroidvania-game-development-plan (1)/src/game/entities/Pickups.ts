@@ -3,6 +3,8 @@ import { sfx } from "../audio";
 import type { Player } from "./Player";
 
 export class CrystalCore extends Phaser.Physics.Arcade.Sprite {
+  collected = false;
+
   constructor(scene: Phaser.Scene, x: number, y: number) {
     const tex = scene.textures.exists("items") ? "items" : "player";
     const frame = scene.textures.get(tex).has("crystal") ? "crystal" : undefined;

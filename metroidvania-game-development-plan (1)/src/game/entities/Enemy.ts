@@ -185,11 +185,15 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     const dist = Phaser.Math.Distance.Between(this.x, this.y, p.x, p.y);
     const dx = p.x - this.x;
 
-    if (this.stats.flying) {
-      this.y = this.hoverY + Math.sin(time / 280 + this.homeX) * 18;
-    }
-
     if (this.fsm.is("hurt", "death")) return;
+
+    // Flying enemies hover through velocity, never by writing to `y`
+    // (Arcade Physics overwrites position from the body every step, and
+    // gravity is off — so without a spring they drift after attacking).
+    if (this.stats.flying && !this.fsm.is("chase", "attack")) {
+      const targetY = this.hoverY + Math.sin(time / 300 + this.homeX) * 16;
+      body.setVelocityY(Phaser.Math.Clamp((targetY - this.y) * 2.5, -70, 70));
+    }
 
     if (this.fsm.is("attack")) {
       if (time > this.attackUntil) {
