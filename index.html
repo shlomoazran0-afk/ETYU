@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ETYU Engine 3D — מנוע משחקים תלת־ממדי</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.min.js" } }
+  </script>
+</head>
+<body>
+  <div id="menu">
+    <header class="menu-head">
+      <div class="logo">ETYU <span>ENGINE 3D</span></div>
+      <p class="tagline">
+        מנוע משחקים תלת־ממדי שרץ כולו בדפדפן — רינדור WebGL, מנוע פיזיקה ייעודי,
+        נכסים פרוצדורליים, אפקטים, סאונד סינתטי וארבעה משחקים שלמים שנבנו עליו.
+        בחרו משחק ויצאו לדרך 🎮
+      </p>
+    </header>
+
+    <main class="cards">
+      <button class="card" data-game="fps">
+        <div class="card-icon">🚁</div>
+        <h3>צייד המל״טים</h3>
+        <p class="genre">FPS · גלים · אקשן</p>
+        <p class="desc">זירה תלת־ממדית עם כוונת, ירי ופיצוצים. שרדו כמה שיותר גלים של מל״טים עוינים שרודפים אחריכם.</p>
+        <div class="controls-hint">⌨ WASD + עכבר · קליק = ירי · רווח = קפיצה</div>
+        <span class="play">שחקו ▶</span>
+      </button>
+
+      <button class="card" data-game="platformer">
+        <div class="card-icon">💎</div>
+        <h3>מסע בין האיים</h3>
+        <p class="genre">פלטפורמר · הרפתקה</p>
+        <p class="desc">קפצו בין איים מרחפים, גלו 12 אבני חן, עברו דרך נקודות ביקורת והגיעו לפורטל בסוף המסלול.</p>
+        <div class="controls-hint">⌨ WASD + עכבר · רווח = קפיצה · גלגלת = זום</div>
+        <span class="play">שחקו ▶</span>
+      </button>
+
+      <button class="card" data-game="racer">
+        <div class="card-icon">🏎️</div>
+        <h3>כביש הטורבו</h3>
+        <p class="genre">מירוץ · ארקייד · אינסופי</p>
+        <p class="desc">נהגו בשקיעה סגולה בין מכשולים במהירות עולה, אספו מטבעות ודרכו על משטחי בוסט — עד ההתנגשות הראשונה.</p>
+        <div class="controls-hint">⌨ A/D סטייה · W גז · S בלימה</div>
+        <span class="play">שחקו ▶</span>
+      </button>
+
+      <button class="card" data-game="sandbox">
+        <div class="card-icon">💥</div>
+        <h3>מגרש ההרס</h3>
+        <p class="genre">סנדבוקס · פיזיקה</p>
+        <p class="desc">מגרש פיזיקה לילי: ירו כדורים, נתצו מגדלי ארגזים ופוצצו חביות בשרשור — בלי מטרה חוץ מכיף ההרס.</p>
+        <div class="controls-hint">⌨ קליק = ירי · גרירה ימנית = מצלמה · R = איפוס</div>
+        <span class="play">שחקו ▶</span>
+      </button>
+    </main>
+
+    <section class="features">
+      <h2>מה יש בתוך המנוע</h2>
+      <ul>
+        <li>🧊 רינדור WebGL + צללים רכים וטונמאפינג</li>
+        <li>🛰️ שמיים, ערפל, כוכבים ותאורת יום/שקיעה/לילה</li>
+        <li>⚙️ פיזיקה: כבידה, חיכוך, קפיצה, מדרגות אוטומטיות, פלטפורמות נעות</li>
+        <li>🧱 התנגשויות AABB + כדורים מול תיבות וכדור-בכדור</li>
+        <li>🎁 ספריית נכסים פרוצדורלית: טקסטורות, בניינים, עצים, מל״טים, מכוניות</li>
+        <li>✨ חלקיקים, פסי ירי, פיצוצים ורעידות</li>
+        <li>🎵 סאונד סינתטי מלא עם WebAudio (בלי קבצי מדיה)</li>
+        <li>🕹️ HUD, הפסקות, ניקוד ומסכי סיום — הכל בעברית</li>
+      </ul>
+    </section>
+
+    <footer>ETYU Engine 3D · נבנה עם three.js ו-JavaScript טהור · כל הנכסים נוצרו בקוד</footer>
+  </div>
+
+  <div id="game-root" class="hidden"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

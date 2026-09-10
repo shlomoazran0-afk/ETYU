@@ -1,0 +1,356 @@
+/* ETYU Engine 3D — עיצוב התפריט וה-HUD */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg1: #0b0f1a;
+  --bg2: #101830;
+  --neon: #35f0ff;
+  --neon2: #8a5cff;
+  --gold: #ffd23e;
+  --panel: rgba(16, 24, 48, 0.85);
+  --line: rgba(120, 200, 255, 0.16);
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, 'Heebo', sans-serif;
+  background: radial-gradient(1200px 700px at 70% -10%, #1b2a55 0%, var(--bg2) 45%, var(--bg1) 100%);
+  color: #e8f2ff;
+  overflow: hidden;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- תפריט ראשי ---------- */
+#menu {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  padding: 42px 22px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.menu-head { text-align: center; }
+
+.logo {
+  font-size: clamp(38px, 7vw, 64px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(92deg, var(--neon), var(--neon2) 60%, #ff5ce1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 40px rgba(80, 180, 255, 0.25);
+}
+.logo span { font-size: 0.45em; font-weight: 700; letter-spacing: 8px; }
+
+.tagline {
+  margin-top: 10px;
+  color: #9fb4d8;
+  font-size: 15px;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  width: min(1020px, 100%);
+}
+
+.card {
+  position: relative;
+  text-align: right;
+  direction: rtl;
+  background: linear-gradient(160deg, rgba(30, 45, 90, 0.55), rgba(12, 18, 38, 0.85));
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px 20px 16px;
+  color: #e8f2ff;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--neon), var(--neon2));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(53, 240, 255, 0.55);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(53, 240, 255, 0.12);
+}
+.card:hover::before { opacity: 1; }
+
+.card-icon { font-size: 40px; line-height: 1; }
+.card h3 { font-size: 20px; margin: 10px 0 2px; }
+.card .genre { font-size: 12px; color: var(--neon); letter-spacing: 1px; }
+.card .desc { font-size: 13.5px; color: #a9bbdd; line-height: 1.55; margin: 8px 0 12px; min-height: 42px; }
+.card .controls-hint {
+  font-size: 11.5px;
+  color: #7e93b8;
+  border-top: 1px dashed var(--line);
+  padding-top: 9px;
+}
+.card .play {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #06121c;
+  background: linear-gradient(92deg, var(--neon), #6bd6ff);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.features {
+  width: min(1020px, 100%);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px 24px;
+}
+.features h2 { font-size: 16px; color: var(--gold); margin-bottom: 12px; }
+.features ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.features li {
+  font-size: 12.5px;
+  color: #bcd2f2;
+  background: rgba(53, 240, 255, 0.07);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 13px;
+}
+
+#menu footer { color: #64789c; font-size: 12px; padding-bottom: 10px; }
+
+/* ---------- אזור המשחק ---------- */
+#game-root { position: fixed; inset: 0; }
+#game-root canvas { display: block; }
+
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  direction: rtl;
+  user-select: none;
+  z-index: 5;
+}
+
+.hud-top {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-pill {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #dfeeff;
+  backdrop-filter: blur(6px);
+}
+.hud-fps { margin-inline-start: auto; font-weight: 500; color: #8fa8cf; font-size: 12px; }
+
+.hud-health {
+  width: 190px;
+  height: 16px;
+  background: rgba(10, 14, 26, 0.8);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.hud-health-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #37e08d, #6ef2a9);
+  border-radius: 999px;
+  transition: width 0.15s ease;
+}
+.hud-health-fill.low { background: linear-gradient(90deg, #ff4757, #ff7b5c); }
+
+/* כוונת */
+.hud-crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%);
+}
+.hud-crosshair span {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+.hud-crosshair span:nth-child(1) { top: 0; left: 12px; width: 2px; height: 7px; }
+.hud-crosshair span:nth-child(2) { bottom: 0; left: 12px; width: 2px; height: 7px; }
+.hud-crosshair span:nth-child(3) { left: 0; top: 12px; width: 7px; height: 2px; }
+.hud-crosshair span:nth-child(4) { right: 0; top: 12px; width: 7px; height: 2px; }
+.hud-crosshair i {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 3px; height: 3px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--neon);
+}
+
+/* מסר מרכזי */
+.hud-msg {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  animation: pop 0.25s ease;
+}
+.hud-msg h2 {
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.6), 0 0 34px rgba(53, 240, 255, 0.35);
+}
+.hud-msg p { margin-top: 6px; color: #cfe2ff; font-size: 17px; text-shadow: 0 2px 8px rgba(0,0,0,.6); }
+@keyframes pop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* פלאש פגיעה */
+.hud-flash { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, transparent 42%, rgba(255, 30, 40, 0.55) 100%); }
+.hud-flash.go { animation: flash 0.45s ease; }
+@keyframes flash { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+/* טוסט */
+.hud-toast {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: #e8f2ff;
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  backdrop-filter: blur(6px);
+  animation: pop 0.2s ease;
+}
+
+/* שכבת־על */
+.hud-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 9, 18, 0.72);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.hud-panel {
+  width: min(560px, calc(100vw - 40px));
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  background: linear-gradient(165deg, rgba(26, 38, 74, 0.96), rgba(10, 15, 32, 0.96));
+  border: 1px solid rgba(120, 200, 255, 0.3);
+  border-radius: 22px;
+  padding: 30px 32px;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  animation: pop 0.22s ease;
+}
+.hud-panel h2 { font-size: 30px; font-weight: 900; }
+.ov-sub { margin-top: 8px; color: #a9bbdd; font-size: 15px; }
+
+.ov-stats {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 18px 0 4px;
+}
+.ov-stat {
+  background: rgba(53, 240, 255, 0.08);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 18px;
+  min-width: 110px;
+}
+.ov-stat span { display: block; font-size: 12px; color: #8fa8cf; }
+.ov-stat b { font-size: 22px; color: var(--gold); }
+
+.ov-controls {
+  margin: 18px auto 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 18px;
+  width: fit-content;
+  text-align: right;
+}
+.ov-ctl { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #c4d6f5; }
+.ov-ctl kbd {
+  background: #16223f;
+  border: 1px solid rgba(140, 190, 255, 0.35);
+  border-bottom-width: 3px;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: #eaf4ff;
+  white-space: nowrap;
+}
+
+.ov-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.ov-btn {
+  font-family: inherit;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #e8f2ff;
+  background: rgba(40, 60, 110, 0.6);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px 26px;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+}
+.ov-btn:hover { transform: translateY(-2px); border-color: rgba(53, 240, 255, 0.6); }
+.ov-btn.primary {
+  color: #06121c;
+  background: linear-gradient(92deg, var(--neon), #6bd6ff);
+  border: none;
+  box-shadow: 0 6px 24px rgba(53, 240, 255, 0.35);
+}
+
+@media (max-width: 640px) {
+  .ov-controls { grid-template-columns: 1fr; }
+  .hud-health { width: 120px; }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "etyu-engine-3d",
+  "version": "1.0.0",
+  "description": "ETYU Engine 3D — מנוע משחקים תלת־ממדי בדפדפן עם ארבעה משחקים",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8123 --bind 0.0.0.0"
+  },
+  "license": "MIT"
+}
